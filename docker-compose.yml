@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  ldap:
+    image: osixia/openldap:latest
+    ports:
+      - 389:389
+      - 636:636
+  app:
+    image: httpd:latest
+    volumes:
+      - ./config/app/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    ports:
+      - 7000:7000
+      - 81:81
+    depends_on:
+      - ldap
+  httpd:
+    image: httpd:latest
+    ports:
+      - 7001:7001
+    depends_on:
+      - ldap
+      - app
