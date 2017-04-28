@@ -9,16 +9,19 @@ services:
   app:
     image: httpd:latest
     volumes:
-      - ./config/app/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./config/app/usr/local/apache2/htdocs:/usr/local/apache2/htdocs
     ports:
-      - 7000:7000
-      - 81:81
+      - 7000:80
     depends_on:
       - ldap
   httpd:
     image: httpd:latest
+    volumes:
+      - ./config/httpd/usr/local/apache2/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./config/httpd/usr/local/apache2/conf/extra/proxy-html.conf:/usr/local/apache2/conf/extra/proxy-html.conf
     ports:
-      - 7001:7001
+      - 7001:80
+      - 81:81
     depends_on:
       - ldap
       - app
