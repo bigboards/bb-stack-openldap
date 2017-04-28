@@ -20,8 +20,9 @@ services:
       - ./config/httpd/usr/local/apache2/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
       - ./config/httpd/usr/local/apache2/conf/extra/proxy-html.conf:/usr/local/apache2/conf/extra/proxy-html.conf
     ports:
-      - 7001:80
-      - 81:81
+      - 7001:7001
+    links:
+      - app:app
     depends_on:
       - ldap
       - app
