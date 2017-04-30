@@ -10,8 +10,8 @@ services:
     image: httpd:latest
     volumes:
       - ./config/app/usr/local/apache2/htdocs:/usr/local/apache2/htdocs
-    ports:
-      - 7000:80
+#    ports:
+#      - 7000:80
     depends_on:
       - ldap
   httpd:
@@ -23,6 +23,7 @@ services:
       - 7001:7001
     links:
       - app:app
+      - ldap:ldap
     depends_on:
       - ldap
       - app
