@@ -15,7 +15,7 @@ services:
   app2:
     image: httpd:latest
     volumes:
-      - ./config/app/usr/local/apache2/htdocs2:/usr/local/apache2/htdocs
+      - ./config/app2/usr/local/apache2/htdocs:/usr/local/apache2/htdocs
 #    ports:
 #      - 7000:80
   httpd:
