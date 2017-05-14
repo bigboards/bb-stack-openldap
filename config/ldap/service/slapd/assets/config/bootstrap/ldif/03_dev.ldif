@@ -1,0 +1,11 @@
+dn: cn=dev,dc=example,dc=org
+changetype: add
+cn=dev
+objectClass: top
+objectClass: posixGroup
+gidNumber: 678
+
+dn: cn=dev,dc=example,dc=org
+changetype: modify
+add: memberuid
+memberuid: billy
