@@ -1,0 +1,42 @@
+dn: uid=billy,dc=example,dc=org
+changetype: add
+uid: billy
+cn: billy
+sn: 3
+objectClass: top
+objectClass: posixAccount
+objectClass: inetOrgPerson
+loginShell: /bin/bash
+homeDirectory: /home/billy
+uidNumber: 14583102
+gidNumber: 14564100
+userPassword: {SSHA}jFgUgFTnv2lvD/5CZgHx9j756pTigF8g
+mail: billy@example.org
+gecos: Billy User
+
+dn: uid=willy,dc=example,dc=org
+changetype: add
+uid: willy
+cn: willy
+sn: 4
+objectClass: top
+objectClass: posixAccount
+objectClass: inetOrgPerson
+loginShell: /bin/bash
+homeDirectory: /home/willy
+uidNumber: 14583103
+gidNumber: 14564100
+userPassword: {SSHA}grYTggboQVzkhpY+v4MrY9fQadhhSTPM
+mail: willy@example.org
+gecos: Willy User
+
+dn: cn=dev,dc=example,dc=org
+changetype: add
+objectClass: top
+objectClass: posixGroup
+gidNumber: 678
+
+dn: cn=dev,dc=example,dc=org
+changetype: modify
+add: memberuid
+memberuid: billy

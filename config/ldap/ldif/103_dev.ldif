@@ -1,6 +1,5 @@
 dn: cn=dev,dc=example,dc=org
 changetype: add
-cn=dev
 objectClass: top
 objectClass: posixGroup
 gidNumber: 678
