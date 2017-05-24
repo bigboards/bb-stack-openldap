@@ -2,39 +2,39 @@ version: '3'
 
 services:
   ldap:
-    image: osixia/openldap:latest
-    command: --copy-service
-    volumes:
-      - ./config/ldap/ldif:/container/service/slapd/assets/config/bootstrap/ldif
-    environment:
-      - LDAP_REMOVE_CONFIG_AFTER_SETUP=false
+    image: dinkel/openldap:latest
     ports:
       - 389:389
-      - 636:636
+    environment:
+      - SLAPD_PASSWORD=admin
+      - SLAPD_DOMAIN=example.org
+      - SLAPD_ORGANIZATION=Example Inc.
+    volumes:
+      - ./config/ldap/ldif:/etc/ldap.dist/prepopulate
   app:
     image: httpd:latest
+#    ports:
+#      - 7000:80
     volumes:
       - ./config/app/usr/local/apache2/htdocs:/usr/local/apache2/htdocs
-#    ports:
-#      - 7000:80
   app2:
     image: httpd:latest
-    volumes:
-      - ./config/app2/usr/local/apache2/htdocs:/usr/local/apache2/htdocs
 #    ports:
 #      - 7000:80
+    volumes:
+      - ./config/app2/usr/local/apache2/htdocs:/usr/local/apache2/htdocs
   httpd:
     image: httpd:latest
-    volumes:
-      - ./config/httpd/usr/local/apache2/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
-      - ./config/httpd/usr/local/apache2/conf/extra/proxy-html.conf:/usr/local/apache2/conf/extra/proxy-html.conf
+    ports:
+      - 7001:7001
+      - 7002:7002
     environment:
       - PROXY_TARGET_HOST=app
       - PROXY_TARGET_PORT=80
       - PROXY_LDAP_URL=ldap://ldap/dc=example,dc=org?uid?sub?(objectClass=posixAccount)
-    ports:
-      - 7001:7001
-      - 7002:7002
+    volumes:
+      - ./config/httpd/usr/local/apache2/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./config/httpd/usr/local/apache2/conf/extra/proxy-html.conf:/usr/local/apache2/conf/extra/proxy-html.conf
     links:
       - app:app
       - app2:app2
