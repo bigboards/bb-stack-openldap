@@ -34,6 +34,5 @@ gecos: Willy User
 
 dn: cn=dev,dc=example,dc=org
 objectClass: top
-objectClass: posixGroup
-gidNumber: 678
-memberUid: billy
+objectClass: groupOfUniqueNames
+uniqueMember: uid=billy,dc=example,dc=org
